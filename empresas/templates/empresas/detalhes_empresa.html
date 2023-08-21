@@ -1,0 +1,93 @@
+{% block content %}
+<html lang="en">
+
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(#1a232c, black);
+        }
+
+        .title {
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(255, 255, 255);
+            text-align: left;
+        }
+
+        .container {
+            background-color: rgb(0, 0, 0);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(248, 244, 244, 0.1);
+            width: 200%;
+            max-width: 400px;
+            border-style: ridge;
+            border-color: aqua;
+            margin-top: 8%;
+            margin-left: 38%;
+
+        }
+
+        .texto {
+            font-family: Arial, Helvetica, sans-serif;
+            color: aliceblue;
+            text-align: left;
+        }
+            .button a{
+            text-decoration: none;
+            color: #fff;
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            transition: .5s;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            }
+            .button:hover{
+                background-color: #000000;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="title">Detalhes da Empresa: {{ empresa.nome }}</h1>
+
+        <div class="texto">
+
+            <p>Endereço: {{ empresa.endereco }}</p>
+            <p>Contato: {{ empresa.contato }}</p>
+
+            <h2>Funcionários:</h2>
+            <ul>
+                {% for funcionario in funcionarios %}
+                <li style="margin-bottom: 10px;">
+                    <a href="{% url 'editar_funcionario' empresa.id funcionario.matricula %}"
+                        style="display: block; background-color: black; color: white; text-decoration: none; padding: 10px; border-radius: 5px;">
+                        {{ funcionario.nome }} - {{ funcionario.cargo }}
+                    </a>
+                </li>
+                {% empty %}
+                <li>Nenhum funcionário cadastrado.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="button">
+
+            <a href="{% url 'cadastrar_funcionario' empresa.id %}">Cadastrar Funcionário</a>
+            
+        </div>
+        
+    </div>
+</body>
+{% endblock %}

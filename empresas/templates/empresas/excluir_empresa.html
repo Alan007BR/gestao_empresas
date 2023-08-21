@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Excluir Empresa: {{ empresa.nome }}</h1>
+  <p>Deseja realmente excluir a empresa "{{ empresa.nome }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirmar">
+  </form>
+{% endblock %}

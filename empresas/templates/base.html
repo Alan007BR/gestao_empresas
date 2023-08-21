@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Empresas</title>
+    <style>
+        /* Estilos para o menu lateral */
+        .menu {
+            width: 300px;
+            height: 100vh;
+            background-color: black; /* Cor de fundo preta */
+            color: white; /* Cor do texto branco */
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: left 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .menu.closed {
+            left: -300px;
+        }
+
+        .menu .arrow {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: black; /* Cor de fundo preta */
+            border: 1px solid white; /* Borda branca */
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu .arrow:hover {
+            background-color: #2c3e50; /* Cor de fundo verde escuro escurecido ao passar o mouse */
+        }
+
+        .menu .empresa-btn {
+            display: block;
+            padding: 10px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            text-align: left;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .menu .empresa-btn:hover {
+            background-color: #2c3e50; /* Cor de fundo verde escuro escurecido ao passar o mouse */
+        }
+
+        .menu .empresa-btn.selected {
+            background-color: #2c3e50; /* Cor de fundo verde escuro para o botão selecionado */
+        }
+
+        /* Estilos para o conteúdo principal */
+        .content {
+            margin-left: 300px;
+            background-color: black; /* Cor de fundo preta para o conteúdo principal */
+            padding: 20px;
+            color: white; /* Cor do texto branco */
+        }
+
+        /* Estilos para os links do conteúdo principal */
+        .content a {
+            color: white; /* Cor do texto branco */
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            color: #2c3e50; /* Cor de fundo verde escuro ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="menu closed">
+        <!-- Conteúdo do menu -->
+        <ul>
+            <li><a href="/empresas/">Todas as Empresas</a></li>
+            <!-- Adicione mais links de navegação aqui -->
+            {% for empresa in empresas %}
+                <li><button class="empresa-btn {% if empresa.id == empresa_selecionada %}selected{% endif %}" onclick="window.location.href='{% url 'detalhes_empresa' empresa.id %}'">{{ empresa.nome }}</button></li>
+            {% empty %}
+                <li>Nenhuma empresa cadastrada.</li>
+            {% endfor %}
+        </ul>
+        <div class="arrow">&raquo;</div>
+    </div>
+
+    <div class="content">
+        <!-- Conteúdo principal -->
+        {% block content %}
+            {% if not empresa %}
+                <h1>Funcionários da Empresa: {{ empresa.nome }}</h1>
+                <ul>
+                    {% for funcionario in empresa_selecionada.funcionarios %}
+                        <li>{{ funcionario.nome }}</li>
+                    {% empty %}
+                        <li>Nenhum funcionário cadastrado nesta empresa.</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h1>Lista de Empresas</h1>
+                <ul>
+                    {% for empresa in empresas %}
+                        <li><a href="{% url 'detalhes_empresa' empresa.id %}">{{ empresa.nome }}</a></li>
+                    {% empty %}
+                        <li>Nenhuma empresa cadastrada.</li>
+                    {% endfor %}
+                </ul>
+                
+            {% endif %}
+        {% endblock %}
+    </div>
+
+    <script>
+        // Script para controlar a abertura/fechamento do menu
+        const menu = document.querySelector('.menu');
+        const arrow = document.querySelector('.arrow');
+
+        arrow.addEventListener('click', () => {
+            menu.classList.toggle('closed');
+        });
+    </script>
+</body>
+</html>

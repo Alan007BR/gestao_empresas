@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 style="text-align: center; color: white;">Excluir Funcionário: {{ funcionario.nome }}</h1>
+  <p style="text-align: center; color: white;">Deseja realmente excluir o funcionário "{{ funcionario.nome }}"?</p>
+  <form method="post" style="display: flex; justify-content: center; align-items: center;">
+    {% csrf_token %}
+    <input type="submit" value="Confirmar" style="border-radius: 5px; padding: 10px; background-color: black; color: white; border: none; cursor: pointer;">
+  </form>
+{% endblock %}

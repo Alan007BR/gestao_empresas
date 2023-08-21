@@ -1,0 +1,81 @@
+{% block content %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+      body {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          min-height: 100vh;
+          margin: 0;
+          background-color: #020000;
+      }
+
+      .container {
+          background-color: rgb(0, 0, 0);
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(248, 244, 244, 0.1);
+          width: 100%;
+          max-width: 400px;
+          border-style: ridge;
+          border-color: aqua;
+      }
+
+      label {
+          display: block;
+          margin-bottom: 5px;
+          font-family: Arial, Helvetica, sans-serif;
+          color: #ccc;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+          width: 95%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          color: #ccc;
+          font-family: Arial, Helvetica, sans-serif;
+      }
+
+      input[type="submit"] {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-family: Arial, Helvetica, sans-serif;
+      }
+
+      input[type="submit"]:hover {
+          background-color: #fdfdfd;
+      }
+
+      .titulo {
+          font-size: large;
+          font-family: Arial, Helvetica, sans-serif;
+          color: #ccc;
+      }
+  </style>
+</head>
+
+<div class="container">
+  <h1 class="titulo">Cadastrar Empresa</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" required><br>
+    <label for="endereco">Endereço:</label>
+    <input type="text" name="endereco" required><br>
+    <label for="contato">Contato:</label>
+    <input type="text" name="contato" required><br>
+    <input type="submit" value="Cadastrar">
+  </form>
+</div>
+{% endblock %}
